@@ -169,7 +169,11 @@ jobs:
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
-        run: echo nothing
+        uses: actions/download-artifact@v2
+        with:
+          name: kiwibrowser-ccache-${{ matrix.platform }}
+          path: $HOME/cache
+          retention-days: 5
 
       - name: Checking available disk-space after downloading cache
         run: df -h
@@ -232,9 +236,13 @@ jobs:
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/gpu
 
       - name: Uploading binary objects to cache
-        if: ${{ github.repository_owner == 'kiwibrowser' }}
-        run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
-  
+        #if: ${{ github.repository_owner == 'kiwibrowser' }}
+        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
+        uses: actions/upload-artifact@v2
+        with:
+          name: kiwibrowser-ccache-${{ matrix.platform }}
+          path: $HOME/cache
+
       - name: Compiling source-code (components/version_info)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/version_info
 
@@ -251,8 +259,12 @@ jobs:
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/browser
 
       - name: Uploading binary objects to cache
-        if: ${{ github.repository_owner == 'kiwibrowser' }}
-        run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
+        #if: ${{ github.repository_owner == 'kiwibrowser' }}
+        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
+        uses: actions/upload-artifact@v2
+        with:
+          name: kiwibrowser-ccache-${{ matrix.platform }}
+          path: $HOME/cache
 
       - name: Compiling source-code (chrome/common)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/common
