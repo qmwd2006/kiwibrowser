@@ -24,11 +24,7 @@ jobs:
     steps:
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          sudo mkdir -p /mnt/cache
-          sudo chown -R runner:docker /mnt/cache
-          
-      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
-        run: ln -s /mnt/cache $HOME/
+          mkdir -p $HOME/cache
 
       - name: gen a file in cache
         run: |
