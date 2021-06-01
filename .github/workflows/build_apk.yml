@@ -190,18 +190,14 @@ jobs:
 
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          sudo mkdir -p /mnt/cache
-          sudo chown -R runner:docker /mnt/cache
-          
-      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
-        run: ln -s /mnt/cache $HOME/
+          mkdir -p $HOME/cache
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
         uses: actions/download-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: $HOME/cache
+          path: ~/cache
 
       - name: Checking available disk-space after downloading cache
         run: df -h
@@ -269,7 +265,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: $HOME/cache
+          path: ~/cache
           retention-days: 2
 
       - name: Compiling source-code (components/version_info)
@@ -293,7 +289,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: $HOME/cache
+          path: ~/cache
           retention-days: 2
 
       - name: Compiling source-code (chrome/common)
