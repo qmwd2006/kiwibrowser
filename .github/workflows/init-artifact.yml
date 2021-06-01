@@ -31,7 +31,10 @@ jobs:
         run: ln -s /mnt/cache $HOME/
 
       - name: gen a file in cache
-        run: touch $HOME/cache/.gitignore
+        run: |
+          touch $HOME/cache/.gitignore
+          echo hello>$HOME/cache/hello.txt
+          tree $HOME/cache/
 
       - name: Uploading binary objects to cache
         uses: actions/upload-artifact@v2
