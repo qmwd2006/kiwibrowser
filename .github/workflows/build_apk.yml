@@ -37,11 +37,15 @@ jobs:
           touch $HOME/cache/.gitignore
           echo hello>$HOME/cache/hello.txt
           tree $HOME/cache/
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache/
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
 
   build:
@@ -190,14 +194,18 @@ jobs:
 
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache
+          mkdir -p $HOME/cache.tar.gz
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
         uses: actions/download-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
+      - name: untar cache
+        run: |
+          tar -xzvf $HOME/cache.tar.gz -C $HOME/cache
+          rm -rf $HOME/cache.tar.gz
 
       - name: Checking available disk-space after downloading cache
         run: df -h
@@ -250,49 +258,57 @@ jobs:
       - name: Compiling source-code (base)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} base
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        #if: ${{ github.repository_owner == 'kiwibrowser' }}
-        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
 
       - name: Compiling source-code (chrome_java)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        #if: ${{ github.repository_owner == 'kiwibrowser' }}
-        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
 
       - name: Compiling source-code (components/guest_view/renderer)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        #if: ${{ github.repository_owner == 'kiwibrowser' }}
-        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
 
       - name: Compiling source-code (chrome/gpu)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/gpu
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        #if: ${{ github.repository_owner == 'kiwibrowser' }}
-        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
 
       - name: Compiling source-code (components/version_info)
