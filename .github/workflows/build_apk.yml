@@ -194,7 +194,7 @@ jobs:
 
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache.tar.gz
+          mkdir -p $HOME/cache
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
