@@ -191,7 +191,7 @@ jobs:
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 
       - name: Running gclient runhooks
-        run: gclient runhooks
+        run: echo gclient runhooks
 
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
