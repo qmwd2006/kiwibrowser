@@ -191,7 +191,9 @@ jobs:
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 
       - name: Running gclient runhooks
-        run: echo gclient runhooks
+        run: |
+          gclient config https://github.com/qmwd2006/kiwibrowser
+          gclient runhooks
 
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
