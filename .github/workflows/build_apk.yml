@@ -17,7 +17,36 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  init:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+    
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        platform: [arm64]
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
+        run: |
+          mkdir -p $HOME/cache
+      - name: gen a file in cache
+        run: |
+          touch $HOME/cache/.gitignore
+          echo hello>$HOME/cache/hello.txt
+          tree $HOME/cache/
+      - name: Uploading binary objects to cache
+        uses: actions/upload-artifact@v2
+        with:
+          name: kiwibrowser-ccache-${{ matrix.platform }}
+          path: ~/cache/
+          retention-days: 2
+
   build:
+    needs: init
+
     # The type of runner that the job will run on
     runs-on: ubuntu-18.04
 
