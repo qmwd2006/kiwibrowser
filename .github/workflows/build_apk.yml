@@ -201,11 +201,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/cache.tar.gz
+          path: ~
       - name: untar cache
         run: |
-          tar -xzvf $HOME/cache.tar.gz -C $HOME/cache
-          rm -rf $HOME/cache.tar.gz
+          tar -xzvf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz -C $HOME/cache
+          rm -rf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
 
       - name: Checking available disk-space after downloading cache
         run: df -h
