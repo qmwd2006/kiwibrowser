@@ -32,9 +32,20 @@ jobs:
           echo hello>$HOME/cache/hello.txt
           tree $HOME/cache/
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache
+          du -sh $HOME/cache.tar.gz
+
       - name: Uploading binary objects to cache
         uses: actions/upload-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache/
+          path: ~/cache.tar.gz
           retention-days: 2
+
+      - name: untar cache
+        run: |
+          tar -zxvf $HOME/cache.tar.gz -C $HOME/cache
+          tree $HOME/cache
+
