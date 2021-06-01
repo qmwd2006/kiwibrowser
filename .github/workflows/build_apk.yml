@@ -173,7 +173,6 @@ jobs:
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
           path: $HOME/cache
-          retention-days: 5
 
       - name: Checking available disk-space after downloading cache
         run: df -h
@@ -242,6 +241,7 @@ jobs:
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
           path: $HOME/cache
+          retention-days: 2
 
       - name: Compiling source-code (components/version_info)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/version_info
@@ -265,6 +265,7 @@ jobs:
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
           path: $HOME/cache
+          retention-days: 2
 
       - name: Compiling source-code (chrome/common)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/common
