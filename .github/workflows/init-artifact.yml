@@ -34,7 +34,7 @@ jobs:
 
       - name: tar cache
         run: |
-          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
           du -sh $HOME/cache.tar.gz
 
       - name: Uploading binary objects to cache
