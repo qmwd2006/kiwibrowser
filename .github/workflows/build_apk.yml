@@ -169,7 +169,7 @@ jobs:
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
-        run echo nothing
+        run: echo nothing
 
       - name: Checking available disk-space after downloading cache
         run: df -h
