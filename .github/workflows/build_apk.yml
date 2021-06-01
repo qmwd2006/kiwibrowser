@@ -195,6 +195,9 @@ jobs:
           gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
 
+      - name: Gen LASTCHANGE
+        run: python build\util\lastchange.py build\util\LASTCHANGE
+
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
 
