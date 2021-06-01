@@ -40,5 +40,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: $HOME/cache/
+          path: ~/cache/
           retention-days: 2
