@@ -205,8 +205,8 @@ jobs:
           path: ~/
       - name: untar cache
         run: |
-          tar -xzvf $HOME/ccache.tar.gz -C $HOME/cache
-          rm -rf ccache.tar.gz
+          tar -xzvf $HOME/cache.tar.gz -C $HOME/cache
+          rm -rf $HOME/cache.tar.gz
 
       - name: Checking available disk-space after downloading cache
         run: df -h
