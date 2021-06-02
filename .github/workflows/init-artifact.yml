@@ -48,7 +48,7 @@ jobs:
         id: download
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/test
+          path: ~/
 
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
@@ -56,7 +56,7 @@ jobs:
       - name: untar cache
         run: |
           ls -R $HOME
-          tar -zxvf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz -C $HOME/cache
-          rm -rf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          tar -zxvf $HOME/cache.tar.gz -C $HOME/cache
+          rm -rf $HOME/cache.tar.gz
           tree $HOME/cache
 
