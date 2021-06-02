@@ -55,7 +55,7 @@ jobs:
 
       - name: untar cache
         run: |
-          tar -zxvf ${{steps.download.outputs.download-path}} -C $HOME/cache
-          rm -rf ${{steps.download.outputs.download-path}}
+          tar -zxvf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz -C $HOME/cache
+          rm -rf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           tree $HOME/cache
 
