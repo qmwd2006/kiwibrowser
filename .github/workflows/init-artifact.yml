@@ -48,7 +48,7 @@ jobs:
         id: download
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/
+          path: ~/test
 
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
