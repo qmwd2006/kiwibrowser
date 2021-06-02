@@ -34,7 +34,6 @@ jobs:
           mkdir -p $HOME/cache
       - name: gen a file in cache
         run: |
-          touch $HOME/cache/.gitignore
           echo hello>$HOME/cache/hello.txt
           tree $HOME/cache/
       - name: tar cache
@@ -47,6 +46,8 @@ jobs:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
   build:
     needs: init
@@ -201,11 +202,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~
+          path: ~/
       - name: untar cache
         run: |
-          tar -xzvf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz -C $HOME/cache
-          rm -rf $HOME/kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          tar -xzvf $HOME/ccache.tar.gz -C $HOME/cache
+          rm -rf ccache.tar.gz
 
       - name: Checking available disk-space after downloading cache
         run: df -h
@@ -268,6 +269,8 @@ jobs:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Compiling source-code (chrome_java)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
@@ -282,6 +285,8 @@ jobs:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Compiling source-code (components/guest_view/renderer)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer
@@ -296,6 +301,8 @@ jobs:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Compiling source-code (chrome/gpu)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/gpu
@@ -310,6 +317,8 @@ jobs:
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Compiling source-code (components/version_info)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/version_info
@@ -326,14 +335,18 @@ jobs:
       - name: Compiling source-code (chrome/browser)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/browser
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        #if: ${{ github.repository_owner == 'kiwibrowser' }}
-        #run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}
-          path: ~/cache
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
           retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Compiling source-code (chrome/common)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome/common
@@ -368,9 +381,18 @@ jobs:
       - name: Compiling source-code (final stage)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_public_apk
 
+      - name: tar cache
+        run: |
+          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+          du -sh $HOME/cache.tar.gz
       - name: Uploading binary objects to cache
-        if: ${{ github.repository_owner == 'kiwibrowser' }}
-        run: rclone copy --fast-list --transfers=32 $HOME/cache/ sync:kiwibrowser-ccache-${{ matrix.platform }}/
+        uses: actions/upload-artifact@v2
+        with:
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          path: ~/cache.tar.gz
+          retention-days: 2
+      - name: rm cache tar
+        run: rm -rf $HOME/cache.tar.gz
 
       - name: Generating native symbols mapping
         run: |
