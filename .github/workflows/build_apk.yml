@@ -244,6 +244,7 @@ jobs:
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} v8
 
       - name: tar cache
+        if: always()
         run: |
           tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
           du -sh $HOME/cache.tar.gz
