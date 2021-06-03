@@ -240,6 +240,9 @@ jobs:
       - name: Compiling source-code (chrome_java)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
 
+      - name: Compiling source-code (v8)
+        run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} v8
+
       - name: tar cache
         run: |
           tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
