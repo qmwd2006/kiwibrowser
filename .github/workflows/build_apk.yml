@@ -444,6 +444,7 @@ jobs:
         run: ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer
 
       - name: tar cache
+        if: always()
         run: |
           tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
           du -sh $HOME/cache.tar.gz
