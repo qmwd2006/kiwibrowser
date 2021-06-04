@@ -15,43 +15,7 @@ on:
   #    - '*.yml'
   #  branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  init:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
-    
-    strategy:
-      fail-fast: false
-      max-parallel: 4
-      matrix:
-        platform: [arm64]
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
-        run: |
-          mkdir -p $HOME/cache
-      - name: gen a file in cache
-        run: |
-          echo hello>$HOME/cache/hello.txt
-          tree $HOME/cache/
-      - name: tar cache
-        run: |
-          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
-          du -sh $HOME/cache.tar.gz
-      - name: Uploading binary objects to cache
-        uses: actions/upload-artifact@v2
-        with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/cache.tar.gz
-          retention-days: 2
-      - name: rm cache tar
-        run: rm -rf $HOME/cache.tar.gz
-
   build:
-    needs: init
-
     # The type of runner that the job will run on
     runs-on: ubuntu-18.04
 
@@ -190,11 +154,16 @@ jobs:
         run: |
           mkdir -p $HOME/cache
 
-      - name: Downloading binary objects cache to $HOME/cache
-        uses: actions/download-artifact@v2
+      - name: Set env.HOME to $HOME
+        run: echo "HOME=$HOME" >> $GITHUB_ENV
+        shell: bash
+
+      - name: download last cache
+        uses: qmwd2006/actions-download-artifact@master
         with:
+          workflow: download-artifact.yml
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/
+          path: ${{env.HOME}}/
       - name: untar cache
         run: |
           tar -xzvf $HOME/cache.tar.gz -C $HOME/cache
@@ -446,7 +415,7 @@ jobs:
         run: ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
 
       - name: Compiling source-code (components/guest_view/renderer)
-        run: ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer
+        run: timeout 5h ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer || true
 
       - name: tar cache
         if: always()
@@ -722,7 +691,7 @@ jobs:
       - name: Uploading binary objects to cache
         uses: actions/upload-artifact@v2
         with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+          name: kiwibrowser-ccache2-${{ matrix.platform }}.tar.gz
           path: ~/cache.tar.gz
           retention-days: 2
       - name: rm cache tar
