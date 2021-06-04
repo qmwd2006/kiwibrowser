@@ -52,8 +52,6 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
-        with:
-          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
@@ -266,8 +264,6 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
-        with:
-          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
@@ -471,8 +467,6 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
-        with:
-          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
