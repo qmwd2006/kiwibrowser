@@ -86,6 +86,8 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
+        with:
+          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
@@ -219,9 +221,9 @@ jobs:
 
       - name: Running gclient runhooks
         run: |
-          gclient config https://github.com/qmwd2006/kiwibrowser
+          # gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
-          tree -L 2
+          # tree -L 2
 
       - name: Gen LASTCHANGE
         run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
@@ -293,6 +295,8 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
+        with:
+          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
@@ -421,9 +425,9 @@ jobs:
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
       - name: Running gclient runhooks
         run: |
-          gclient config https://github.com/qmwd2006/kiwibrowser
+          # gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
-          tree -L 2
+          # tree -L 2
       - name: Gen LASTCHANGE
         run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
 
@@ -494,6 +498,8 @@ jobs:
 
       - name: Checking-out source-code in $GITHUB_WORKSPACE
         uses: actions/checkout@v2
+        with:
+          path: ./src
 
       - name: Creating secondary disk folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
@@ -622,9 +628,9 @@ jobs:
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
       - name: Running gclient runhooks
         run: |
-          gclient config https://github.com/qmwd2006/kiwibrowser
+          # gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
-          tree -L 2
+          # tree -L 2
       - name: Gen LASTCHANGE
         run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
 
