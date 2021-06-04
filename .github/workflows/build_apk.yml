@@ -196,8 +196,8 @@ jobs:
           gclient runhooks
           # tree -L 2
 
-      - name: Gen LASTCHANGE
-        run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
+      #- name: Gen LASTCHANGE
+      #  run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
 
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
@@ -394,13 +394,15 @@ jobs:
           echo "base_dir = $HOME" >> $HOME/.ccache/ccache.conf
           echo "cache_dir = $HOME/cache" >> $HOME/.ccache/ccache.conf
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
+      
       - name: Running gclient runhooks
         run: |
           # gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
           # tree -L 2
-      - name: Gen LASTCHANGE
-        run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
+
+      #- name: Gen LASTCHANGE
+      #  run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
 
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
@@ -597,13 +599,15 @@ jobs:
           echo "base_dir = $HOME" >> $HOME/.ccache/ccache.conf
           echo "cache_dir = $HOME/cache" >> $HOME/.ccache/ccache.conf
           echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
+      
       - name: Running gclient runhooks
         run: |
           # gclient config https://github.com/qmwd2006/kiwibrowser
           gclient runhooks
           # tree -L 2
-      - name: Gen LASTCHANGE
-        run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
+      
+      #- name: Gen LASTCHANGE
+      #  run: python ./build/util/lastchange.py ./build/util/LASTCHANGE
 
       - name: Generating build files
         run: gn gen ./secondary_disk/out/android_${{ matrix.platform }}
