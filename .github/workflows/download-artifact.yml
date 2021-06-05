@@ -22,40 +22,25 @@ jobs:
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Set env.HOME to $HOME
+        run: echo "HOME=$HOME" >> $GITHUB_ENV
+        shell: bash
+
+      #- name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
+      #  run: |
+      #    mkdir -p $HOME/cache
+
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache
+          sudo mkdir -p /mnt/cache
+          sudo chown -R runner:docker /mnt/cache
+          
+      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
+        run: ln -s /mnt/cache $HOME/
 
       - name: download last cache
-        uses: qmwd2006/actions-download-artifact
+        uses: qmwd2006/actions-download-artifact@master
         with:
-          workflow: $GITHUB_WORKFLOW
-          name: kiwibrowser-cache-${{ matrix.platform }}.tar.gz
-          path: ~/
-          workflow_conclusion: success，timeout
-
-      - name: untar cache
-        run: |
-          ls -R $HOME
-          tar -zxvf $HOME/cache.tar.gz -C $HOME/cache
-          rm -rf $HOME/cache.tar.gz
-          tree $HOME/cache
-
-      - name: gen a file in cache
-        if: always()
-        run: |
-          touch $HOME/cache/.gitignore
-          echo hello>$HOME/cache/$(date "+%Y%m%d-%H%M%S").txt
-          tree $HOME/cache/
-
-      - name: tar cache
-        run: |
-          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
-          du -sh $HOME/cache.tar.gz
-
-      - name: Uploading binary objects to cache
-        uses: actions/upload-artifact@v2
-        with:
+          workflow: download-artifact.yml
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/cache.tar.gz
-          retention-days: 2
+          path: ${{env.HOME}}/
