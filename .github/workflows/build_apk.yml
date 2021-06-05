@@ -677,18 +677,18 @@ jobs:
       - name: Compiling source-code (v8)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} v8
 
-      - name: tar cache
-        run: |
-          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
-          du -sh $HOME/cache.tar.gz
-      - name: Uploading binary objects to cache
-        uses: actions/upload-artifact@v2
-        with:
-          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
-          path: ~/cache.tar.gz
-          retention-days: 2
-      - name: rm cache tar
-        run: rm -rf $HOME/cache.tar.gz
+      #- name: tar cache
+      #  run: |
+      #    tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+      #    du -sh $HOME/cache.tar.gz
+      #- name: Uploading binary objects to cache
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
+      #    path: ~/cache.tar.gz
+      #    retention-days: 2
+      #- name: rm cache tar
+      #  run: rm -rf $HOME/cache.tar.gz
 
       - name: Checking available disk-space
         run: df -h
@@ -708,18 +708,18 @@ jobs:
       - name: Compiling source-code (final stage)
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_public_apk
 
-      - name: tar cache
-        run: |
-          tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
-          du -sh $HOME/cache.tar.gz
-      - name: Uploading binary objects to cache
-        uses: actions/upload-artifact@v2
-        with:
-          name: kiwibrowser-ccache2-${{ matrix.platform }}.tar.gz
-          path: ~/cache.tar.gz
-          retention-days: 2
-      - name: rm cache tar
-        run: rm -rf $HOME/cache.tar.gz
+      #- name: tar cache
+      #  run: |
+      #    tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+      #    du -sh $HOME/cache.tar.gz
+      #- name: Uploading binary objects to cache
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: kiwibrowser-ccache2-${{ matrix.platform }}.tar.gz
+      #    path: ~/cache.tar.gz
+      #    retention-days: 2
+      #- name: rm cache tar
+      #  run: rm -rf $HOME/cache.tar.gz
 
       - name: Generating native symbols mapping
         run: |
