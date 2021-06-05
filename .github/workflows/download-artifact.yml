@@ -42,5 +42,5 @@ jobs:
         uses: qmwd2006/actions-download-artifact@master
         with:
           workflow: download-artifact.yml
-          name: kiwibrowser-ccache2-${{ matrix.platform }}.tar.gz
+          name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ${{env.HOME}}/
