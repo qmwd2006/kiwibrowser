@@ -150,9 +150,17 @@ jobs:
       - name: Checking available disk-space
         run: df -h
 
+      #- name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
+      #  run: |
+      #    mkdir -p $HOME/cache
+
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache
+          sudo mkdir -p /mnt/cache
+          sudo chown -R runner:docker /mnt/cache
+          
+      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
+        run: ln -s /mnt/cache $HOME/
 
       - name: Set env.HOME to $HOME
         run: echo "HOME=$HOME" >> $GITHUB_ENV
@@ -358,9 +366,17 @@ jobs:
       - name: Checking available disk-space
         run: df -h
 
+      #- name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
+      #  run: |
+      #    mkdir -p $HOME/cache
+
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache
+          sudo mkdir -p /mnt/cache
+          sudo chown -R runner:docker /mnt/cache
+          
+      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
+        run: ln -s /mnt/cache $HOME/
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
@@ -561,9 +577,17 @@ jobs:
       - name: Checking available disk-space
         run: df -h
 
+      #- name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
+      #  run: |
+      #    mkdir -p $HOME/cache
+
       - name: Creating cache folder on /dev/disk/azure/resource-part1 (SSD)
         run: |
-          mkdir -p $HOME/cache
+          sudo mkdir -p /mnt/cache
+          sudo chown -R runner:docker /mnt/cache
+          
+      - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
+        run: ln -s /mnt/cache $HOME/
 
       - name: Downloading binary objects cache to $HOME/cache
         # run: rclone copy --fast-list --transfers=128 cache:kiwibrowser-ccache-${{ matrix.platform }} $HOME/cache
