@@ -44,3 +44,11 @@ jobs:
           workflow: download-artifact.yml
           name: kiwibrowser-ccache-${{ matrix.platform }}.tar.gz
           path: ${{env.HOME}}/
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: cache
+          files: ${{env.HOME}}/cache.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
