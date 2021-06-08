@@ -397,6 +397,10 @@ jobs:
       - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
         run: ln -s /mnt/cache $HOME/
 
+      - name: Set env.HOME to $HOME
+        run: echo "HOME=$HOME" >> $GITHUB_ENV
+        shell: bash
+
       - name: Download Release Asset
         uses: i3h/download-release-asset@v1
         with:
@@ -627,6 +631,10 @@ jobs:
           
       - name: Creating symlink in $HOME/cache pointing to cache on /dev/disk/azure/resource-part1
         run: ln -s /mnt/cache $HOME/
+
+      - name: Set env.HOME to $HOME
+        run: echo "HOME=$HOME" >> $GITHUB_ENV
+        shell: bash
 
       - name: Download Release Asset
         uses: i3h/download-release-asset@v1
