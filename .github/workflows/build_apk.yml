@@ -455,10 +455,10 @@ jobs:
         run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} base
 
       - name: Compiling source-code (chrome_java)
-        run: ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
+        run: ninja -C ./secondary_disk/out/android_${{ matrix.platform }} chrome_java
 
       - name: Compiling source-code (components/guest_view/renderer)
-        run: timeout 5h ninja -j 4 -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer || true
+        run: timeout 4h ninja -C ./secondary_disk/out/android_${{ matrix.platform }} components/guest_view/renderer || true
 
       - name: tar cache
         if: always()
