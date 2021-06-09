@@ -58,5 +58,6 @@ jobs:
       - name: Calculating cache size
         run: |
           tree
+          ls -alh $HOME/cache
           ls $HOME/cache
           du -csh $HOME/cache
