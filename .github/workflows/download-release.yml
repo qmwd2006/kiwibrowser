@@ -50,6 +50,7 @@ jobs:
       - name: untar cache
         run: |
           du -sh cache.tar.gz.*
+          ls -alh $HOME/cache
           ls cache.tar.gz.*>/dev/null 2>&1 && { echo hello ; }
           ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxvf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
