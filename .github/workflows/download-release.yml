@@ -42,7 +42,7 @@ jobs:
         uses: i3h/download-release-asset@v1
         with:
           owner: qmwd2006
-          repo: download-release
+          repo: src
           tag: ccache
           file: /cache.tar.gz.*/
           token: ${{ secrets.GITHUB_TOKEN }}
