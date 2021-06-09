@@ -49,8 +49,9 @@ jobs:
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache ; }
+          du -sh cache.tar.gz.*
+          ls cache.tar.gz.*>/dev/null 2>&1 && { echo hello ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxvf - -C $HOME/cache ; }
           rm -rf cache.tar.gz.*
 
       - name: Calculating cache size
