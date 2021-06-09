@@ -55,4 +55,7 @@ jobs:
           rm -rf cache.tar.gz.*
 
       - name: Calculating cache size
-        run: du -csh $HOME/cache
+        run: |
+          tree
+          ls $HOME/cache
+          du -csh $HOME/cache
