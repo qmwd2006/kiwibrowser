@@ -170,14 +170,14 @@ jobs:
         uses: i3h/download-release-asset@v1
         with:
           owner: qmwd2006
-          repo: actions-download-artifact
+          repo: src
           tag: ccache
           file: /cache.tar.gz.*/
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -187,7 +187,7 @@ jobs:
         run: curl "https://omahaproxy.appspot.com/all" | grep -Fi "android,stable" | cut -f3 -d"," | awk '{split($0,a,"."); print "MAJOR=" a[1] "\nMINOR=" a[2] "\nBUILD=" a[3] "\nPATCH=" a[4]}' > chrome/VERSION
         
       - name: Calculating cache size
-        run: du -csh $HOME/cache
+        run: du -csh $HOME/cache/
 
       - name: Creating ccache configuration
         run: |
@@ -405,14 +405,14 @@ jobs:
         uses: i3h/download-release-asset@v1
         with:
           owner: qmwd2006
-          repo: actions-download-artifact
+          repo: src
           tag: ccache
           file: /cache.tar.gz.*/
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -422,7 +422,7 @@ jobs:
         run: curl "https://omahaproxy.appspot.com/all" | grep -Fi "android,stable" | cut -f3 -d"," | awk '{split($0,a,"."); print "MAJOR=" a[1] "\nMINOR=" a[2] "\nBUILD=" a[3] "\nPATCH=" a[4]}' > chrome/VERSION
         
       - name: Calculating cache size
-        run: du -csh $HOME/cache
+        run: du -csh $HOME/cache/
 
       - name: Creating ccache configuration
         run: |
@@ -640,14 +640,14 @@ jobs:
         uses: i3h/download-release-asset@v1
         with:
           owner: qmwd2006
-          repo: actions-download-artifact
+          repo: src
           tag: ccache
           file: /cache.tar.gz.*/
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -657,7 +657,7 @@ jobs:
         run: curl "https://omahaproxy.appspot.com/all" | grep -Fi "android,stable" | cut -f3 -d"," | awk '{split($0,a,"."); print "MAJOR=" a[1] "\nMINOR=" a[2] "\nBUILD=" a[3] "\nPATCH=" a[4]}' > chrome/VERSION
         
       - name: Calculating cache size
-        run: du -csh $HOME/cache
+        run: du -csh $HOME/cache/
 
       - name: Creating ccache configuration
         run: |
