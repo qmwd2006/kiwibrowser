@@ -85,8 +85,8 @@ jobs:
           cp ../.cipd/.gclient ..
           cp ../.cipd/.gclient_entries ..
 
-      - name: Installing rclone
-        run: curl https://rclone.org/install.sh | sudo bash -s beta
+      #- name: Installing rclone
+      #  run: curl https://rclone.org/install.sh | sudo bash -s beta
 
       - name: Updating APT repository
         run: sudo apt-get update
@@ -313,8 +313,9 @@ jobs:
           ln -s $GITHUB_WORKSPACE/./secondary_disk/.cipd ..
           cp ../.cipd/.gclient ..
           cp ../.cipd/.gclient_entries ..
-      - name: Installing rclone
-        run: curl https://rclone.org/install.sh | sudo bash -s beta
+
+      #- name: Installing rclone
+      #  run: curl https://rclone.org/install.sh | sudo bash -s beta
 
       - name: Updating APT repository
         run: sudo apt-get update
@@ -539,8 +540,9 @@ jobs:
           ln -s $GITHUB_WORKSPACE/./secondary_disk/.cipd ..
           cp ../.cipd/.gclient ..
           cp ../.cipd/.gclient_entries ..
-      - name: Installing rclone
-        run: curl https://rclone.org/install.sh | sudo bash -s beta
+      
+      #- name: Installing rclone
+      #  run: curl https://rclone.org/install.sh | sudo bash -s beta
 
       - name: Updating APT repository
         run: sudo apt-get update
