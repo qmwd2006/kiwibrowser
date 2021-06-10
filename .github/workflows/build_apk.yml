@@ -726,8 +726,8 @@ jobs:
       - name: Checking available disk-space
         run: df -h
 
-      - name: Reclaiming disk space
-        run: rm -rf $HOME/cache/*
+      #- name: Reclaiming disk space
+      #  run: rm -rf $HOME/cache/*
 
       - name: Checking available disk-space
         run: df -h
