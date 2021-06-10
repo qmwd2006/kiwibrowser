@@ -231,25 +231,16 @@ jobs:
           tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
-      - name: Delete Release First
-        if: always()
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true # default: false
-          tag_name: ccache # tag name to delete
-          # repo: <owner>/<repoName> # target repo (optional). defaults to repo running this action
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload binaries to release
         if: always()
-        uses: svenstaro/upload-release-action@v2
+        uses: qmwd2006/actions-upload-release@master
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{env.HOME}}/cache.tar.gz.*
           file_glob: true
           tag: ccache
           overwrite: true
+          clear_release: true
           body: "cache.tar.gz"
 
       - name: rm cache tar
@@ -466,25 +457,16 @@ jobs:
           tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
-      - name: Delete Release First
-        if: always()
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true # default: false
-          tag_name: ccache # tag name to delete
-          # repo: <owner>/<repoName> # target repo (optional). defaults to repo running this action
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload binaries to release
         if: always()
-        uses: svenstaro/upload-release-action@v2
+        uses: qmwd2006/actions-upload-release@master
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{env.HOME}}/cache.tar.gz.*
           file_glob: true
           tag: ccache
           overwrite: true
+          clear_release: true
           body: "cache.tar.gz"
 
       - name: rm cache tar
@@ -765,25 +747,16 @@ jobs:
           tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
-      - name: Delete Release First
-        if: always()
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true # default: false
-          tag_name: ccache # tag name to delete
-          # repo: <owner>/<repoName> # target repo (optional). defaults to repo running this action
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload binaries to release
         if: always()
-        uses: svenstaro/upload-release-action@v2
+        uses: qmwd2006/actions-upload-release@master
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{env.HOME}}/cache.tar.gz.*
           file_glob: true
           tag: ccache
           overwrite: true
+          clear_release: true
           body: "cache.tar.gz"
 
       - name: rm cache tar
