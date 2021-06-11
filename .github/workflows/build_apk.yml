@@ -177,7 +177,7 @@ jobs:
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar --atime-preserve -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -228,7 +228,7 @@ jobs:
       - name: tar cache
         if: always()
         run: |
-          tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
+          tar --format=posix -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
       - name: Upload binaries to release
@@ -404,7 +404,7 @@ jobs:
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar --atime-preserve -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -455,7 +455,7 @@ jobs:
       - name: tar cache
         if: always()
         run: |
-          tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
+          tar --format=posix -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
       - name: Upload binaries to release
@@ -631,7 +631,7 @@ jobs:
 
       - name: untar cache
         run: |
-          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar -zxf - -C $HOME/cache/ ; }
+          ls cache.tar.gz.*>/dev/null 2>&1 && { cat cache.tar.gz.* | tar --atime-preserve -zxf - -C $HOME/cache/ ; }
           rm -rf cache.tar.gz.*
 
       - name: Checking available disk-space after downloading cache
@@ -714,7 +714,7 @@ jobs:
 
       #- name: tar cache
       #  run: |
-      #    tar -zcvf $HOME/cache.tar.gz -C $HOME/cache .
+      #    tar --format=posix -zcvf $HOME/cache.tar.gz -C $HOME/cache .
       #    du -sh $HOME/cache.tar.gz
       #- name: Uploading binary objects to cache
       #  uses: actions/upload-artifact@v2
@@ -746,7 +746,7 @@ jobs:
       - name: tar cache
         if: always()
         run: |
-          tar -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
+          tar --format=posix -zcf - -C $HOME/cache . | split -b 1G - $HOME/cache.tar.gz.
           du -sh $HOME/cache.tar.gz.*
 
       - name: Upload binaries to release
